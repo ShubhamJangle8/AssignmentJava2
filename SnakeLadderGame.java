@@ -10,10 +10,12 @@ public class SnakeLadderGame {
 		//variables
 		int player1_position = 0;
 		
+		
 		while(player1_position != max_position) {
 			
 			int dice_num = (int)Math.floor(Math.random() * 10) % 6 + 1 ;
 			System.out.println("Number on dice : "+dice_num);
+			
 			
 			int option_check = (int)Math.floor(Math.random() * 10) % 3;
 			
@@ -30,9 +32,12 @@ public class SnakeLadderGame {
 				System.out.println("On a same position");
 				break;
 			}
-		
 			if(player1_position < min_position) {
 				player1_position = min_position;
+			}
+			
+			if(player1_position > max_position) {
+				player1_position -= dice_num;
 			}
 			System.out.println("Your position is "+player1_position);
 		}
