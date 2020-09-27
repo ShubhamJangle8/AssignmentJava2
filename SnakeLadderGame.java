@@ -1,50 +1,76 @@
 public class SnakeLadderGame {
+	
+	static final int no_play = 0;
+	static final int snake = 1;
+	static final int ladder = 2;
+	static final int max_position = 100;
+	static final int min_position = 0;
+	static int total_dice_roll = 0;
+
+	public static int dice_throw(int position) {
+		total_dice_roll++;												
+		int dice_num = (int)Math.floor(Math.random() * 10) % 6 + 1 ;
+		System.out.println("Number on dice : "+dice_num);
+		
+		//checking which option we got
+		int option_check = (int)Math.floor(Math.random() * 10) % 3;
+		
+		switch(option_check) {
+		case 1:
+			System.out.println("You got snake.");
+			position -= dice_num;
+			break;
+		case 2:
+			System.out.println("You got ladder.");
+			position += dice_num;
+			position = dice_throw(position);							
+			break;
+		default:
+			System.out.println("Be on a same position");
+			break;
+		}
+		
+		if(position < min_position) {
+			position = min_position;
+		}
+	
+		if(position > max_position) {
+			position -= dice_num;
+		}
+		
+		return position;
+	}	
+	
 	public static void main(String[] args) {
 		//constants
-		final int no_play = 0;
-		final int snake = 1;
-		final int ladder = 2;
-		final int max_position = 100;
-		final int min_position = 0;
+		int player1_num = 0;
+		int player2_num = 1;
 		 
 		//variables
 		int player1_position = 0;
-		int total_dice_rolls = 0;
+		int player2_position = 0;
 		
-	
-		while(player1_position != max_position) {
-			
-			int dice_num = (int)Math.floor(Math.random() * 10) % 6 + 1 ;
-			System.out.println("Number on dice : "+dice_num);
-			total_dice_rolls++;
-			
-			
-			int option_check = (int)Math.floor(Math.random() * 10) % 3;
-			
-			switch(option_check) {
-			case 1:
-				System.out.println("You got snake.");
-				player1_position -= dice_num;
-				break;
-			case 2:
-				System.out.println("You got ladder.");
-				player1_position += dice_num;
-				break;
-			default:
-				System.out.println("Be on a same position");
-				break;
+		int roll = (int)Math.floor(Math.random() * 10) % 2;
+		
+		while(player1_position != max_position && player2_position != max_position) {
+			if(roll%2 == player1_num) {
+				System.out.println("Player 1 playing..");
+				player1_position = dice_throw(player1_position);
 			}
 			
-			if(player1_position < min_position) {
-				player1_position = min_position;
+			if(roll%2 == player2_num) {
+				System.out.println("Player 2 playing..");
+				player2_position = dice_throw(player2_position);
 			}
 			
-			if(player1_position > max_position) {
-				player1_position -= dice_num;
-			}
-			System.out.println("Your position is "+player1_position);
+			System.out.println("Player 1 position : "+player1_position);
+			System.out.println("Player 2 position : "+player2_position);
+			roll++;
 		}
-		
-		System.out.println("Number of dice rolls required to win the game : "+total_dice_rolls);
+		if(player1_position == max_position)
+			System.out.println("PLAYER 1 WON THE GAME");
+		else
+			System.out.println("PLAYER 2 WON THE GAME");
+		System.out.println("Number of dice rolls required to win the game : "+total_dice_roll);
 	}
 }
