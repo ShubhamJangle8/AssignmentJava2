@@ -9,29 +9,32 @@ public class SnakeLadderGame {
 		 
 		//variables
 		int player1_position = 0;
+		int total_dice_rolls = 0;
 		
-		
+	
 		while(player1_position != max_position) {
 			
 			int dice_num = (int)Math.floor(Math.random() * 10) % 6 + 1 ;
 			System.out.println("Number on dice : "+dice_num);
+			total_dice_rolls++;
 			
 			
 			int option_check = (int)Math.floor(Math.random() * 10) % 3;
 			
 			switch(option_check) {
 			case 1:
-				System.out.println("Move behind by "+dice_num+" positions");
+				System.out.println("You got snake.");
 				player1_position -= dice_num;
 				break;
 			case 2:
-				System.out.println("Move ahead by "+dice_num+" positions");
+				System.out.println("You got ladder.");
 				player1_position += dice_num;
 				break;
 			default:
-				System.out.println("On a same position");
+				System.out.println("Be on a same position");
 				break;
 			}
+			
 			if(player1_position < min_position) {
 				player1_position = min_position;
 			}
@@ -41,5 +44,7 @@ public class SnakeLadderGame {
 			}
 			System.out.println("Your position is "+player1_position);
 		}
+		
+		System.out.println("Number of dice rolls required to win the game : "+total_dice_rolls);
 	}
 }
